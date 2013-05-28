@@ -5,17 +5,7 @@ Modification of the nsisXML plugin (by Wizou)
 
 Added setNamespace method to work with selecting nodes inside of a namespace.
 
-Example xml of why this was needed.
-
-<?xml version="1.0" encoding="UTF-8"?>
-
-\<main xmlns="namespace">
-
-  \<child>content\</child>
-  
-\</main>
-
-The existing code could not find the correct node when searching for /main/child.
+See Sample.xml for an example of why this was needed.
 
 Usage:
   nsisXML::setNamespace "xmlns:a='namespace'"

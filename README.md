@@ -11,7 +11,7 @@ Example xml of why this was needed.
 
 \<main xmlns="namespace">
 
-  \<child>content</child>
+  \<child>content\</child>
   
 \</main>
 

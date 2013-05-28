@@ -1,7 +1,14 @@
 Release/
+Release_UNICODE/
 Debug/
 *.ncb
 *.user
 *.suo
-
-
+Sample.exe
+*.pdb
+*.lib
+*.exp
+*.tlog
+*.log
+*.manifest
+*.sdf

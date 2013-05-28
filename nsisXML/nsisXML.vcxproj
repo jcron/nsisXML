@@ -56,12 +56,12 @@
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>.\Release\</OutDir>
+    <OutDir>..\bin\</OutDir>
     <IntDir>.\Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release UNICODE|Win32'">
-    <OutDir>.\Release_UNICODE\</OutDir>
+    <OutDir>..\binU\</OutDir>
     <IntDir>.\Release_UNICODE\</IntDir>
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
@@ -128,7 +128,7 @@
       <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
     </ClCompile>
     <PostBuildEvent>
-      <Command>"%ProgramFiles%\NSIS\Unicode\makensis" /V2 "/DTARGETDIR=$(TargetDir)" "/DINTDIR=$(IntDir)" "$(ProjectDir)Sample.nsi"</Command>
+      <Command>"%ProgramFiles%\NSIS\makensis" /V2 "/DTARGETDIR=$(TargetDir)" "/DINTDIR=$(IntDir)" "$(ProjectDir)Sample.nsi"</Command>
       <Message>Building Sample Installer...</Message>
     </PostBuildEvent>
     <Midl>
@@ -150,8 +150,8 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <LinkDLL>true</LinkDLL>
       <SubSystem>Console</SubSystem>
-      <OutputFile>../bin/nsisXML.dll</OutputFile>
-      <ImportLibrary>.\Release\nsisXML.lib</ImportLibrary>
+      <OutputFile>..\bin\nsisXML.dll</OutputFile>
+      <ImportLibrary>..\bin\nsisXML.lib</ImportLibrary>
       <AdditionalDependencies>shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
@@ -194,7 +194,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <LinkDLL>true</LinkDLL>
       <SubSystem>Console</SubSystem>
-      <OutputFile>../binU/nsisXML.dll</OutputFile>
+      <OutputFile>..\binU\nsisXML.dll</OutputFile>
       <ImportLibrary>.\Release_UNICODE\nsisXML.lib</ImportLibrary>
       <AdditionalDependencies>shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OptimizeReferences>true</OptimizeReferences>

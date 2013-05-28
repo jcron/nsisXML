@@ -21,7 +21,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include <shlwapi.h>
 #include <comdef.h>
 
-#import "MSXML.DLL"
+#import "MSXML4.DLL"
 
 typedef struct {
   void *exec_flags;
@@ -85,12 +85,12 @@ void _set(TCHAR *var, LPDISPATCH value)
 	WideCharToMultiByte(CP_ACP, 0, var, -1, variables + varnum*string_size, string_size, NULL, NULL);
 #endif
 
-#define get_doc() MSXML::IXMLDOMDocumentPtr doc = get(0)
-#define get_parent() MSXML::IXMLDOMNodePtr parent = get(1)
+#define get_doc() MSXML2::IXMLDOMDocument2Ptr doc = get(0)
+#define get_parent() MSXML2::IXMLDOMNodePtr parent = get(1)
 #define set_parent(item) set(1, item)
-#define get_child(type) MSXML::type ## Ptr child = get(2)
+#define get_child(type) MSXML2::type ## Ptr child = get(2)
 #define set_child(item) set(2, item)
-#define get_child2(type) MSXML::type ## Ptr child2 = get(3)
+#define get_child2(type) MSXML2::type ## Ptr child2 = get(3)
 
 const LPCSTR DOMDocuments[] = // DOMDocument UUID from all the available MSXML DLL variants
 {
@@ -108,14 +108,17 @@ UINT_PTR NSISCallback(enum NSPIM msg) { return 0; } // we get notified of unload
 NSIS_FUNC(create)
 {
 	if (extra) extra->RegisterPluginCallback(g_hInstance, NSISCallback); // to prevent unloading of this plugin
-	MSXML::IXMLDOMDocumentPtr doc = NULL;
+	MSXML2::IXMLDOMDocument2Ptr doc = NULL;
 	int index = sizeof(DOMDocuments)/sizeof(DOMDocuments[0]); // try to find the most recent DOMDocument available
 	while (index--)
 	{
 		if (doc.CreateInstance(DOMDocuments[index], NULL, CLSCTX_INPROC_SERVER | CLSCTX_LOCAL_SERVER) == S_OK)
 			break;
 	}
-	if (doc) doc->async = VARIANT_FALSE;
+	if (doc)
+    {
+        doc->async = VARIANT_FALSE;
+    }
 	set(0, doc);
 	var2var(0, 1);
 }
@@ -217,6 +220,13 @@ NSIS_FUNC(select)
 		settvar(1, _T("0"));
 	}
 	var2var(1, 2);
+}
+
+NSIS_FUNC(setNamespace)
+{
+	get_doc();
+    pop(namespaces);
+    doc->setProperty("SelectionNamespaces", namespaces);
 }
 
 NSIS_FUNC(parentNode)

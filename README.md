@@ -19,4 +19,4 @@ The existing code could not find the correct node when searching for /main/child
 
 Usage:
   nsisXML::setNamespace "xmlns:a='namespace'"
-	nsisXML::select "/a:main/a:child"
+  nsisXML::select "/a:main/a:child"
